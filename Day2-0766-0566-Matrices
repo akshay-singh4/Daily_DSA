@@ -1,0 +1,71 @@
+Question : 766. Toeplitz Matrix
+Given an m x n matrix, return true if the matrix is Toeplitz. Otherwise, return false.
+A matrix is Toeplitz if every diagonal from top-left to bottom-right has the same elements.
+
+Explanation : 
+This was a simple question where I solved it with two nested for loops and checked the next [i+1][j+1]th element for whether it was equal : if equal we continued 
+else returned false.
+
+Time complexity : O(m*n)
+Space complexity : O(1)
+
+Solution :
+class Solution {
+public:
+    bool isToeplitzMatrix(vector<vector<int>>& matrix) {
+        int m=matrix.size(),n=matrix[0].size();
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(i<m-1 and j<n-1){
+                    if(matrix[i+1][j+1]==matrix[i][j]){
+                        continue;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+};
+
+Question : 566. Reshape the Matrix
+In MATLAB, there is a handy function called reshape which can reshape an m x n matrix into a new one with a different size r x c keeping its original data.
+You are given an m x n matrix mat and two integers r and c representing the number of rows and the number of columns of the wanted reshaped matrix.
+The reshaped matrix should be filled with all the elements of the original matrix in the same row-traversing order as they were.
+If the reshape operation with given parameters is possible and legal, output the new reshaped matrix; Otherwise, output the original matrix.
+
+Explanation : 
+This was also a simple question where we had to insert elements into a given sized array while preserving the row-traversing order that is if we would have to 
+write elements in a single line while accessing them one row after another, this single line of elements should be same for both the arrays (given and created)
+if thats not the same then we return the same matrix.
+I used two nested for loops and an if-else condition to increment the new matrix's traversal(as shown in code).
+
+Time complexity : O(m*n)
+Space complexity : O(1)
+
+Solution : 
+class Solution {
+public:
+    vector<vector<int>> matrixReshape(vector<vector<int>>& mat, int r, int c) {
+        int m=mat.size(),n=mat[0].size(),p=0,q=0;
+        vector<vector<int>>ans(r,vector<int>(c));
+        if(m*n==(r*c)){
+            for(int i=0;i<m;i++){
+                for(int j=0;j<n;j++){
+                    ans[p][q]=mat[i][j];
+                    if(q==c-1){
+                        q=0;
+                        p++;
+                    }
+                    else{
+                        q++;
+                    }
+                }
+            }
+            return ans;
+        }
+        return mat;
+    }
+};
