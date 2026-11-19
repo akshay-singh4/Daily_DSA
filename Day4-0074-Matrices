@@ -1,0 +1,38 @@
+Question :-
+74. Search a 2D Matrix
+You are given an m x n integer matrix matrix with the following two properties:
+
+Each row is sorted in non-decreasing order.
+The first integer of each row is greater than the last integer of the previous row.
+Given an integer target, return true if target is in matrix or false otherwise.
+
+You must write a solution in O(log(m * n)) time complexity.
+
+Explanation :-
+The main challenge and restriction is to solve this under the time complexity - log(m*n). The key idea is to visualize the matrix as a 1-D array and access elements
+by using 'mid/n' and 'mid%n' after 'mid's updation.
+Refer to the code for better understanding
+
+Solution :-
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int m=matrix.size(),n=matrix[0].size();
+        int low=0,high=m*n-1,mid=0;
+        while(low<=high){
+            mid = low + (high-low/2);
+            if(target==matrix[mid/n][mid%n]){
+                return 1;
+            }
+            else if(target<matrix[mid/n][mid%n]){
+                high=mid-1;
+            }
+            else{
+                low= mid+1;
+            }
+        }
+        return 0;   
+    }
+};
+
+here updation is done as if we are using a 1-D array yet the only change is the accessing of middle value for which we use division and remainder on mid variable.
